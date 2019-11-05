@@ -8,15 +8,15 @@ class Carousel {
       .controls .next, .controls .previous {
         font-family: monospace;
         font-size: 23px;
-        color: black;
+        color: rgba(0, 0, 0, 0.3);
         background-color: transparent;
         border: none;
         cursor: pointer;
         position: absolute;
         top: 50%;
       }
-      .controls .next:hover, .controls .previous:hover {
-        color: gray;
+      .controls .next:hover, .controls .next:focus, .controls .previous:hover, .controls .previous:focus {
+        color: rgba(0, 0, 0, 0.9);
       }
       .controls .next {
         right: 0;
