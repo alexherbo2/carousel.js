@@ -24,11 +24,37 @@ class Carousel {
       .controls .previous {
         left: 0;
       }
+      .indicators {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      .indicators button {
+        font-family: monospace;
+        font-size: 23px;
+        color: rgba(0, 0, 0, 0.3);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .indicators button.active {
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .indicators button:hover {
+        color: rgba(0, 0, 0, 0.9);
+      }
     `
     this.initialize()
   }
   get slides() {
     return this.root.querySelectorAll('.slides section')
+  }
+  get indicators() {
+    return this.root.querySelectorAll('.indicators button')
   }
   get index() {
     return this.state.index
@@ -56,6 +82,17 @@ class Carousel {
     previous.title = 'Previous'
     previous.addEventListener('click', (event) => this.show(this.index - 1))
     controls.append(previous)
+    // Indicators
+    const indicators = document.createElement('ol')
+    indicators.classList.add('indicators')
+    for (const [index, slide] of this.slides.entries()) {
+      const item = document.createElement('li')
+      const button = document.createElement('button')
+      button.textContent = '⦿'
+      button.addEventListener('click', (event) => this.show(index))
+      indicators.appendChild(item).appendChild(button)
+    }
+    this.root.append(indicators)
     // Style
     const style = document.createElement('style')
     style.textContent = this.style
@@ -69,6 +106,11 @@ class Carousel {
       slide.style.display = 'none'
     }
     this.slides[this.index].style.display = 'unset'
+    // Indicators
+    for (const button of this.indicators) {
+      button.classList.remove('active')
+    }
+    this.indicators[this.index].classList.add('active')
   }
   static modulo(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor
