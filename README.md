@@ -1,4 +1,10 @@
-# Carousel
+# carousel.js
+
+A JavaScript library to slide sections.
+
+## Installation
+
+Add [`carousel.js`](src/carousel.js) to your project.
 
 ## Usage
 
